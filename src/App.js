@@ -360,7 +360,7 @@ const ConnectFourGame = () => {
     return true;
   }, [currentPlayer, gameOver, droppingDisc, board, animateDiscDrop]);
 
-  // AI move effect 
+  // AI move effect - Completely rewritten for better reliability
   useEffect(() => {
     // Only proceed if it's AI's turn and conditions are right
     if (!isAIMode || currentPlayer !== PLAYER2 || gameOver || droppingDisc) {
@@ -543,26 +543,26 @@ const ConnectFourGame = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-2 sm:p-4 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-blue-500 opacity-10 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-purple-500 opacity-10 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-500 opacity-5 animate-spin" style={{animationDuration: '20s'}}></div>
+        <div className="absolute -top-20 -right-20 sm:-top-40 sm:-right-40 w-40 h-40 sm:w-80 sm:h-80 rounded-full bg-blue-500 opacity-10 animate-pulse"></div>
+        <div className="absolute -bottom-20 -left-20 sm:-bottom-40 sm:-left-40 w-40 h-40 sm:w-80 sm:h-80 rounded-full bg-purple-500 opacity-10 animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-96 sm:h-96 rounded-full bg-indigo-500 opacity-5 animate-spin" style={{animationDuration: '20s'}}></div>
       </div>
 
       {/* Header */}
-      <div className="relative z-10 text-center mb-8">
-        <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 mb-6 tracking-tight">
+      <div className="relative z-10 text-center mb-4 sm:mb-6 lg:mb-8">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 mb-3 sm:mb-4 lg:mb-6 tracking-tight">
           Connect Four
         </h1>
         
         {/* Game Mode Toggle */}
-        <div className="flex items-center justify-center mb-6">
+        <div className="flex items-center justify-center mb-4 sm:mb-6">
           <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
             <button
               onClick={() => { setIsAIMode(false); resetGame(); }}
-              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-bold transition-all duration-300 text-sm sm:text-base ${
                 !isAIMode 
                   ? 'bg-white text-blue-900 shadow-xl transform scale-105' 
                   : 'text-white hover:bg-white/10'
@@ -572,7 +572,7 @@ const ConnectFourGame = () => {
             </button>
             <button
               onClick={() => { setIsAIMode(true); resetGame(); }}
-              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-bold transition-all duration-300 text-sm sm:text-base ${
                 isAIMode 
                   ? 'bg-white text-blue-900 shadow-xl transform scale-105' 
                   : 'text-white hover:bg-white/10'
@@ -584,29 +584,29 @@ const ConnectFourGame = () => {
         </div>
 
         {/* Scoreboard */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 mb-6">
-          <div className="grid grid-cols-3 gap-6 text-white">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-white/20 mb-4 sm:mb-6">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 text-white">
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-400">{scores.player1}</div>
-              <div className="text-sm opacity-75">Player 1</div>
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-red-400">{scores.player1}</div>
+              <div className="text-xs sm:text-sm opacity-75">Player 1</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-400">{scores.draws}</div>
-              <div className="text-sm opacity-75">Draws</div>
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-400">{scores.draws}</div>
+              <div className="text-xs sm:text-sm opacity-75">Draws</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-yellow-400">{scores.player2}</div>
-              <div className="text-sm opacity-75">{isAIMode ? 'AI' : 'Player 2'}</div>
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400">{scores.player2}</div>
+              <div className="text-xs sm:text-sm opacity-75">{isAIMode ? 'AI' : 'Player 2'}</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Game Status */}
-      <div className="relative z-10 text-center mb-8">
+      <div className="relative z-10 text-center mb-4 sm:mb-6 lg:mb-8">
         {gameOver ? (
-          <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30">
-            <div className="text-3xl md:text-4xl font-bold mb-2">
+          <div className="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/30">
+            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
               {winner ? (
                 <span className={`${winner === PLAYER1 ? 'text-red-400' : 'text-yellow-400'} animate-bounce`}>
                   🎉 {isAIMode && winner === PLAYER2 ? 'AI Wins!' : `Player ${winner} Wins!`} 🎉
@@ -617,16 +617,16 @@ const ConnectFourGame = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+          <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-white/20">
             {isAIThinking ? (
-              <div className="flex items-center justify-center gap-3">
-                <div className="animate-spin w-6 h-6 border-2 border-yellow-400 border-t-transparent rounded-full"></div>
-                <span className="text-xl font-semibold text-yellow-400">AI is thinking...</span>
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <div className="animate-spin w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-2 border-yellow-400 border-t-transparent rounded-full"></div>
+                <span className="text-base sm:text-lg md:text-xl font-semibold text-yellow-400">AI is thinking...</span>
               </div>
             ) : (
-              <div className="flex items-center justify-center gap-3">
-                <div className={`w-6 h-6 rounded-full ${currentPlayer === PLAYER1 ? 'bg-red-500' : 'bg-yellow-400'} animate-pulse`}></div>
-                <span className={`text-xl font-semibold ${currentPlayer === PLAYER1 ? 'text-red-400' : 'text-yellow-400'}`}>
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <div className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full ${currentPlayer === PLAYER1 ? 'bg-red-500' : 'bg-yellow-400'} animate-pulse`}></div>
+                <span className={`text-base sm:text-lg md:text-xl font-semibold ${currentPlayer === PLAYER1 ? 'text-red-400' : 'text-yellow-400'}`}>
                   {isAIMode && currentPlayer === PLAYER2 ? "AI's Turn" : `Player ${currentPlayer}'s Turn`}
                 </span>
               </div>
@@ -636,10 +636,10 @@ const ConnectFourGame = () => {
       </div>
 
       {/* Game Board */}
-      <div className="relative z-10 mb-8">
-        <div className="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-900 rounded-3xl shadow-2xl border-4 border-blue-700/50 backdrop-blur-sm overflow-hidden">
-          {/* Column hover areas */}
-          <div className="grid grid-cols-7 gap-0 p-6 pb-2">
+      <div className="relative z-10 mb-4 sm:mb-6 lg:mb-8 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <div className="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-900 rounded-2xl sm:rounded-3xl shadow-2xl border-2 sm:border-4 border-blue-700/50 backdrop-blur-sm overflow-hidden">
+          {/* Column hover areas - Responsive sizing */}
+          <div className="grid grid-cols-7 gap-0 p-3 sm:p-4 md:p-6 pb-1 sm:pb-2">
             {Array(COLS).fill(null).map((_, colIndex) => (
               <div 
                 key={`col-container-${colIndex}`} 
@@ -648,7 +648,7 @@ const ConnectFourGame = () => {
                 onMouseLeave={handleColumnLeave}
               >
                 <button
-                  className={`w-16 h-12 md:w-20 md:h-12 lg:w-24 lg:h-12 rounded-t-xl transition-all duration-200 flex items-center justify-center ${
+                  className={`w-10 h-8 sm:w-12 sm:h-10 md:w-16 md:h-12 lg:w-20 lg:h-12 xl:w-24 xl:h-12 rounded-t-lg sm:rounded-t-xl transition-all duration-200 flex items-center justify-center ${
                     isColumnFull(board, colIndex) || gameOver || isAIThinking || droppingDisc
                       ? 'cursor-not-allowed opacity-30'
                       : hoverColumn === colIndex
@@ -660,18 +660,18 @@ const ConnectFourGame = () => {
                   onClick={() => !isAIThinking && makeMove(colIndex)}
                   disabled={isColumnFull(board, colIndex) || gameOver || isAIThinking || droppingDisc}
                 >
-                  <div className="text-white/70 text-sm font-bold">{colIndex + 1}</div>
+                  <div className="text-white/70 text-xs sm:text-sm font-bold">{colIndex + 1}</div>
                 </button>
                 
-                {/* Preview disc - properly aligned */}
+                {/* Preview disc - Responsive sizing */}
                 {previewDisc.visible && previewDisc.col === colIndex && !gameOver && !isAIThinking && !droppingDisc && (
-                  <div className="mt-2 animate-bounce">
-                    <div className={`w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full border-4 opacity-60 ${
+                  <div className="mt-1 sm:mt-2 animate-bounce">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 rounded-full border-2 sm:border-4 opacity-60 ${
                       currentPlayer === PLAYER1 
                         ? 'bg-gradient-to-br from-red-400 via-red-500 to-red-600 border-red-700' 
                         : 'bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 border-yellow-600'
                     }`}>
-                      <div className="absolute inset-2 rounded-full bg-gradient-to-tl from-transparent via-white/20 to-white/40 opacity-60"></div>
+                      <div className="absolute inset-1 sm:inset-2 rounded-full bg-gradient-to-tl from-transparent via-white/20 to-white/40 opacity-60"></div>
                     </div>
                   </div>
                 )}
@@ -679,19 +679,19 @@ const ConnectFourGame = () => {
             ))}
           </div>
 
-          {/* Board grid with visible slots */}
-          <div className="grid grid-cols-7 gap-1 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 mx-6 mb-6 p-4 rounded-2xl shadow-inner border-2 border-blue-600/50">
+          {/* Board grid - Responsive sizing */}
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 mx-3 sm:mx-4 md:mx-6 mb-3 sm:mb-4 md:mb-6 p-2 sm:p-3 md:p-4 rounded-xl sm:rounded-2xl shadow-inner border border-blue-600/50 sm:border-2">
             {board.map((row, rowIndex) =>
               row.map((cell, colIndex) => {
                 const discStyle = getDiscStyle(rowIndex, colIndex, cell);
                 return (
                   <div
                     key={`${rowIndex}-${colIndex}`}
-                    className="relative w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
+                    className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24"
                   >
                     {/* Grid slot background - always visible */}
-                    <div className="absolute inset-0 rounded-full bg-blue-900/80 border-2 border-blue-500/30 shadow-inner">
-                      <div className="absolute inset-1 rounded-full bg-gradient-to-br from-blue-800/50 to-blue-900/80 border border-blue-400/20"></div>
+                    <div className="absolute inset-0 rounded-full bg-blue-900/80 border border-blue-500/30 sm:border-2 shadow-inner">
+                      <div className="absolute inset-0.5 sm:inset-1 rounded-full bg-gradient-to-br from-blue-800/50 to-blue-900/80 border border-blue-400/20"></div>
                     </div>
                     
                     {/* Disc - only visible when there's a piece */}
@@ -701,7 +701,7 @@ const ConnectFourGame = () => {
                         style={discStyle.style}
                       >
                         {/* Inner shine effect */}
-                        <div className="absolute inset-2 rounded-full bg-gradient-to-tl from-transparent via-white/20 to-white/40 opacity-60"></div>
+                        <div className="absolute inset-1 sm:inset-2 rounded-full bg-gradient-to-tl from-transparent via-white/20 to-white/40 opacity-60"></div>
                       </div>
                     )}
                   </div>
@@ -713,34 +713,34 @@ const ConnectFourGame = () => {
       </div>
 
       {/* Control buttons */}
-      <div className="relative z-10 flex gap-4">
+      <div className="relative z-10 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none">
         <button
           onClick={resetGame}
-          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-green-400/50"
+          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base md:text-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-green-400/50"
         >
           🔄 New Game
         </button>
         
         <button
           onClick={() => setScores({ player1: 0, player2: 0, draws: 0 })}
-          className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-purple-400/50"
+          className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base md:text-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-purple-400/50"
         >
           🏆 Reset Score
         </button>
       </div>
 
       {/* Instructions */}
-      <div className="relative z-10 mt-8 text-center text-white/70 max-w-md">
-        <p className="mb-2">🎯 Drop discs by clicking on columns</p>
-        <p className="mb-2">🏆 Get 4 in a row to win!</p>
-        <div className="flex justify-center items-center gap-6 mt-4">
+      <div className="relative z-10 mt-6 sm:mt-8 text-center text-white/70 max-w-xs sm:max-w-sm md:max-w-md px-4">
+        <p className="mb-2 text-sm sm:text-base">🎯 Drop discs by clicking on columns</p>
+        <p className="mb-2 text-sm sm:text-base">🏆 Get 4 in a row to win!</p>
+        <div className="flex justify-center items-center gap-4 sm:gap-6 mt-4">
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-gradient-to-br from-red-400 to-red-600 rounded-full shadow-lg"></div>
-            <span className="font-semibold">Player 1</span>
+            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-gradient-to-br from-red-400 to-red-600 rounded-full shadow-lg"></div>
+            <span className="font-semibold text-sm sm:text-base">Player 1</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full shadow-lg"></div>
-            <span className="font-semibold">{isAIMode ? 'AI' : 'Player 2'}</span>
+            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full shadow-lg"></div>
+            <span className="font-semibold text-sm sm:text-base">{isAIMode ? 'AI' : 'Player 2'}</span>
           </div>
         </div>
       </div>
